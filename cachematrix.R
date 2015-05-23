@@ -9,33 +9,32 @@
 
 
 makeCacheMatrix <- function(x = matrix()) {
-m <- NULL
-set <- function(y) {
-x <<- y
-m <<- NULL
+    m <- NULL
+    set <- function(y) {
+        x <<- y
+        m <<- NULL
 }
 
-get <-function()x
-setinverse <-function(solve)M <<-solve
-getinverse <-function()
-m
-list(set=set, get=get,
-setinverse=setinverse,
-getinverse=getinverse)
+    get <-function()x
+    setinverse <-function(solve) m <<-solve
+    getinverse <-function() m
+    list(set=set, get=get,
+        setinverse=setinverse,
+        getinverse=getinverse)
 }
 
 ## This function looks at the previous function and determines if it is cached.
 ## it pulls the cached data if possible and if it can not than it solves for the inverse.
 
 cacheSolve <- function(x, ...) {
-m <-x$getinverse()
-if(!is.null(m)){
-message("getting cached data")
-return (m)
+    m <-x$getinverse()
+    if(!is.null(m)){
+        message("getting cached data")
+        return (m)
 }
 
-data <- x$get()
-m <-solve(data,...)
-x$setinverse(m)
-m
+    data <- x$get()
+    m <-solve(data,...)
+    x$setinverse(m)
+    m
 }
